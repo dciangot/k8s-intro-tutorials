@@ -1,27 +1,35 @@
-# Core concepts hands-on (15 min)
+# kubectl
 
-## Create and inspect PODs
-
-- Create a namespace
-- Select namespace
-- Create a pod
-- Delete pod
-- Inspect pod 
-  - See IP address
-  - status (with describe)
-  - logs (kubectl logs)
-
-
-# Kubenetes dashboard
-
-## Exposing the dashboard with kubectl forward
+## List API resources
 
 ```
-kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
+kubectl api-resources
 ```
 
+## Describe API resources
 
-## Exposing the dashboard with ingress controller
+```
+kubectl explain pods
+kubectl explain deployments
+```
 
-TBD
+## Create a namespace
+
+## Managing contexts
+
+### Exercise
+
+1. Create two contexts, one for the olss-demo-app namespace and one for ingress-nginx namespace.
+
+```
+kubectl  config set-context --cluster=minikube --namespace=olss-demo-app --user=minikube olss-demo-app
+kubectl  config set-context --cluster=minikube --namespace=ingress-nginx --user=minikube ingres-nginx
+```
+
+2. Learn how to switch between contexts
+
+```
+ kubectl  config use-context ingress-nginx
+ kubectl  config use-context olss-demo-app
+ ```
 
