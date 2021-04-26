@@ -105,18 +105,50 @@ Kubernetes documentation.
 
 ---
 
-**Summary:** Understanding and being able to switch between contexts is a base
-fundamental skill required by every Kubernetes user. As more clusters and
-namespaces are added, this can become unwieldy. Installing a helper application
-such as [kubectx](https://github.com/ahmetb/kubectx) can be quite helpful.
-Kubectx allows a user to quickly switch between contexts and namespaces without
-having to use the full `kubectl config use-context` command.
-
 ---
 
 [Back to Index](#index)
 
 ---
+
+### Exercise: Using Contexts
+**Objective:** Create a new context called `minidev` and switch to it.
+
+---
+
+1. View the current contexts.
+```
+$ kubectl config get-contexts
+```
+
+2. Create a new context called `minidev` within the `minikube` cluster with the `dev` namespace, as the
+`minikube` user.
+```
+$ kubectl config set-context minidev --cluster=minikube --user=minikube --namespace=dev
+```
+
+3. View the newly added context.
+```
+kubectl config get-contexts
+```
+
+4. Switch to the `minidev` context using `use-context`.
+```
+$ kubectl config use-context minidev
+```
+
+5. View the current active context.
+```
+$ kubectl config current-context
+```
+
+---
+
+**Summary:** Understanding and being able to switch between contexts is a base fundamental skill required by every
+Kubernetes user. As more clusters and namespaces are added, this can become unwieldy. Installing a helper
+application such as [kubectx](https://github.com/ahmetb/kubectx) can be quite helpful. Kubectx allows a user to quickly
+switch between contexts and namespaces without having to use the full `kubectl config use-context` command.
+
 ---
 
 ## Kubectl Basics
