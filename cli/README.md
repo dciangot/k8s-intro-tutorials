@@ -1,7 +1,6 @@
 # Using the CLI
-
-The Kubernetes client, `kubectl` is the primary method of interacting with a
-Kubernetes cluster. Getting to know it is essential to using Kubernetes itself.
+The Kubernetes client, `kubectl` is the primary method of interacting with a Kubernetes cluster. Getting to know it
+is essential to using Kubernetes itself.
 
 
 ## Index
@@ -51,10 +50,6 @@ $ kubectl delete pod mypod
 ```
 
 ---
-See also Kubectl cheat sheet
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-
----
 
 [Back to Index](#index)
 
@@ -63,19 +58,16 @@ https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 
 # Context and kubeconfig
-`kubectl` allows a user to interact with and manage multiple Kubernetes
-clusters. To do this, it requires what is known as a context. A context
-consists of a combination of `cluster`, `namespace` and `user`.
-* **cluster** - A friendly name, server address, and certificate for the
-  Kubernetes cluster.
-* **namespace (optional)** - The logical cluster or environment to use. If none
-  is provided, it will use the default `default` namespace.
-* **user** - The credentials used to connect to the cluster. This can be a
-  combination of client certificate and key, username/password, or token.
+`kubectl` allows a user to interact with and manage multiple Kubernetes clusters. To do this, it requires what is known
+as a context. A context consists of a combination of `cluster`, `namespace` and `user`.
+* **cluster** - A friendly name, server address, and certificate for the Kubernetes cluster.
+* **namespace (optional)** - The logical cluster or environment to use. If none is provided, it will use the default
+`default` namespace.
+* **user** - The credentials used to connect to the cluster. This can be a combination of client certificate and key,
+username/password, or token.
 
-These contexts are stored in a local yaml based config file referred to as the
-`kubeconfig`. For \*nix based systems, the `kubeconfig` is stored in
-`$HOME/.kube/config` for Windows, it can be found in
+These contexts are stored in a local yaml based config file referred to as the `kubeconfig`. For \*nix based
+systems, the `kubeconfig` is stored in `$HOME/.kube/config` for Windows, it can be found in
 `%USERPROFILE%/.kube/config`
 
 This config is viewable without having to view the file directly.
@@ -85,29 +77,48 @@ This config is viewable without having to view the file directly.
 $ kubectl config view
 ```
 
+**Example**
+```yaml
+$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: /Users/example/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    namespace: dev
+    user: minikube
+  name: minidev
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minidev
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /Users/example/.minikube/client.crt
+    client-key: /Users/example/.minikube/client.key
+```
+
 ---
 
 ### `kubectl config`
 
-Managing all aspects of contexts is done via the `kubectl config` command. Some
-examples include:
+Managing all aspects of contexts is done via the `kubectl config` command. Some examples include:
 * See the active context with `kubectl config current-context`.
 * Get a list of available contexts with `kubectl config get-contexts`.
-* Switch to using another context with the `kubectl config use-context
-  <context-name>` command.
-* Add a new context with `kubectl config set-context <context name>
-  --cluster=<cluster name> --user=<user> --namespace=<namespace>`.
+* Switch to using another context with the `kubectl config use-context <context-name>` command.
+* Add a new context with `kubectl config set-context <context name> --cluster=<cluster name> --user=<user> --namespace=<namespace>`.
 
-There can be quite a few specifics involved when adding a context, for the
-available options, please see the [Configuring Multiple
-Clusters](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+There can be quite a few specifics involved when adding a context, for the available options, please see the
+[Configuring Multiple Clusters](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 Kubernetes documentation.
-
----
-
----
-
-[Back to Index](#index)
 
 ---
 
@@ -151,12 +162,15 @@ switch between contexts and namespaces without having to use the full `kubectl c
 
 ---
 
-## Kubectl Basics
+[Back to Index](#index)
 
-There are several `kubectl` commands that are frequently used for any sort of
-day-to-day operations. `get`, `create`, `apply`, `delete`, `describe`, and
-`logs`.  Other commands can be listed simply with `kubectl --help`, or `kubectl
-<command> --help`.
+---
+---
+
+## Kubectl Basics
+There are several `kubectl` commands that are frequently used for any sort of day-to-day operations. `get`, `create`,
+`apply`, `delete`, `describe`, and `logs`.  Other commands can be listed simply with `kubectl --help`, or
+`kubectl <command> --help`.
 
 ---
 
