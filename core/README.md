@@ -495,6 +495,7 @@ turn direct traffic to the desired Pods.
 ---
 
 ### Exercise: Using the ExternalName Service
+
 **Objective:** Gain an understanding of the `ExternalName` Service and how it is used within a Kubernetes Cluster.
 
 ---
@@ -528,7 +529,9 @@ internal Service discovery methods to reference external entities.
 ---
 
 ### Exercise: Exposing a service using ingress
+
 **Objective:** Gain an understanding of how `Ingress` resources and the NGINX ingress controller works. 
+
 ---
 
 Prerequisites: 
@@ -536,6 +539,11 @@ Prerequisites:
 - ensure the ingress addon is enabled for your minikube cluster
 ```
 minikube addons enable ingress
+```
+- Disable the ingress resource admin controller (which is currently buggy on
+  Minikube)
+```
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 ```
 - Get the ip for your minikube VM and annotate it
 ```
@@ -562,6 +570,17 @@ $ kubectl describe ingress example-ingress
 $ curl ingress-example.minkube
 ```
 
+4) Delete the ingress resource:
+```
+$ kubectl delete ing ingress-example
+
+```
+
+5) To forward the ingress controller and access resources from a remote machine
+use the following command:
+```
+$ kubectl --namespace=ingress-nginx port-forward --address 0.0.0.0 svc/ingress-nginx-controller 8080:80
+```
 ---
 
 **Summary:** `Ingress` acts as a single entry point towards your cluster and uses virtualhost to forward traffic
