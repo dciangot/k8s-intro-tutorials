@@ -15,6 +15,7 @@ and how they are used is crucial to learning how to use the higher level objects
   * [Exercise: Using the NodePort Service](#exercise-using-the-nodeport-service)
   * [Exercise: The LoadBalancer Service](#exercise-the-loadbalancer-service)
   * [Exercise: Using the ExternalName Service](#exercise-using-the-externalname-service)
+  * [Exercise: Exposing a service using ingress](#exercise-exposing-a-service-using-ingress)
 * [Cleaning up](#cleaning-up)
 * [Helpful Resources](#helpful-resources)
 
@@ -333,15 +334,15 @@ $ kubectl create -f manifests/service-clusterip.yaml
 $ kubectl describe service clusterip
 ```
 
-3) View the service through `kube proxy` and refresh several times. It should serve up pages from both pods.
+3) Forward the service port and refresh several times. It should serve up pages from both pods.
 
 **Command**
 ```
-$ kubectl proxy
+$ kubectl  port-forward --address=0.0.0.0 svc/clusterip 8080:80
 ```
 **URL**
 ```
-http://127.0.0.1:8001/api/v1/namespaces/dev/services/clusterip/proxy/
+http://<your-olss-vm-machine-ip>:8080
 ```
 
 4) Lastly, verify that the generated DNS record has been created for the Service by using nslookup within the
@@ -525,6 +526,49 @@ internal Service discovery methods to reference external entities.
 [Back to Index](#index)
 
 ---
+
+### Exercise: Exposing a service using ingress
+**Objective:** Gain an understanding of how `Ingress` resources and the NGINX ingress controller works. 
+---
+
+Prerequisites: 
+
+- ensure the ingress addon is enabled for your minikube cluster
+```
+minikube addons enable ingress
+```
+- Get the ip for your minikube VM and annotate it
+```
+minikube ip
+```
+- Edit the /etc/hosts for your VM to include the following line
+```
+<the-minikube-ip> ingress-example.minikube
+```
+
+
+1) Create an `Ingress` resources for the service created before 
+```
+$ kubectl apply -f manifests/ingress-example.yaml
+```
+
+2) Inspect the created Ingress.
+```
+$ kubectl describe ingress example-ingress
+```
+
+3) See the ingress in action:
+```
+$ curl ingress-example.minkube
+```
+
+---
+
+**Summary:** `Ingress` acts as a single entry point towards your cluster and uses virtualhost to forward traffic
+to the appropriate service depending on the configuration.
+
+---
+
 ---
 
 # Cleaning Up
@@ -532,7 +576,6 @@ internal Service discovery methods to reference external entities.
 To remove everything that was created in this tutorial, execute the following commands:
 ```
 kubectl delete namespace dev
-kubectl delete -f manifests/metalLB.yaml
 kubectl config delete-context minidev
 kubectl config use-context minikube
 ```
