@@ -51,6 +51,10 @@ $ kubectl delete pod mypod
 ```
 
 ---
+See also Kubectl cheat sheet
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+---
 
 [Back to Index](#index)
 
