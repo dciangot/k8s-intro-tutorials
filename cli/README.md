@@ -631,7 +631,14 @@ http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboar
 ```
 $ minikube dashboard
 ```
-Minikube offers a convenient shortcut to access the dashboard (without the proxy) for local development use.
+Minikube offers a convenient shortcut to access the dashboard (without the proxy) for local development use. But in our environment this won't work, because you don't have any browser installed on your VM.
+
+6) Access the dashboard through port forwarding
+
+```
+ $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8081:80 
+```
+You can now access the kubernetes dashboard via web browser (because your cloud admin opened the 8081 port on perimeter) 
 
 ---
 
