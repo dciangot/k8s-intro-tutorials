@@ -117,7 +117,7 @@ $ kubectl port-forward --address=0.0.0.0 pod/pod-example 8080:80
 ```
 **URL**
 ```
-http://<your-machine-ip>:8080
+http://<your-olss-vm-machine-ip>:8080
 ```
 
 The default **"Welcome to nginx!"** page should be visible.
@@ -170,7 +170,7 @@ $ kubectl port-forward --address=0.0.0.0 pod/multi-container-example 8080:80
 ```
 **URL**
 ```
-http://<your-machine-ip>:8080
+http://<your-olss-vm-machine-ip>:8080
 ```
 
 There should be a repeating date-time-stamp.
