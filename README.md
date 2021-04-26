@@ -9,15 +9,13 @@ a variety of virtualization engines. To install it and the other tutorial depend
 
 Each section assumes an instance of minikube is up and running. To start minikube for the first time, use the command:
 ```
-minikube start --kubernetes-version v1.15.1
+minikube start
 ```
 
 To launch an alternative version of kubernetes within your minikube instance, supply an alternate version string:
 ```
 minikube start --kubernetes-version <version string>
 ```
-
-Tutorials have been validated against minikube v1.2.0 running Kubernetes v1.15.1 and kubectl 1.15.1
 
 ---
 
@@ -123,7 +121,7 @@ Once done, [verify your Install](#verifying-install).
 
 With the software installed you can verify it is working correctly by executing:
 ```
-minikube start --kubernetes-version v1.15.1
+minikube start
 ```
 
 This will take a little bit of time the first time it is run as it will download its needed dependencies and starts the
@@ -176,14 +174,14 @@ This can be caused by a variety of issues. However the solution is the same.
 First try deleting and recreating the minikube instance
 ```
 minikube delete
-minikube start --kubernetes-version v1.15.1
+minikube start
 ```
 
 If that does not resolve the issue, delete the local minikube configs and try starting it again
 ```
 minikube delete
 rm -rf ~/.minikube
-minikube start --kubernetes-version v1.15.1
+minikube start
 ```
 That should hopefully resolve the kubeadm init error.
 
