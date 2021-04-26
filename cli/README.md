@@ -48,6 +48,22 @@ $ kubectl get pods
 $ kubectl get pod mypod
 $ kubectl delete pod mypod
 ```
+# Autocompletion, explain, kubectl api-resources
+
+In your machine is active the kubectl autocompletion 
+
+To get help about an object symply type 
+```
+kubectl explain <object>
+```
+
+```
+$ kubectl explain pod
+```
+To find all available objects 
+```
+$ kubectl api-resources
+```
 
 ---
 
