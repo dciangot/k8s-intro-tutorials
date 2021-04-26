@@ -570,8 +570,10 @@ http://<proxy_address>/api/v1/namespaces/<namespace>/<services|pod>/<service_nam
 
 **Example**
 ```
+http://127.0.0.1:8001/api/v1/namespaces/dev/pods/mypod/proxy/
 http://127.0.0.1:8001/api/v1/namespaces/default/pods/mypod/proxy/
 http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/
+http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/kubernetes-dashboard/proxy/
 ```
 ---
 
