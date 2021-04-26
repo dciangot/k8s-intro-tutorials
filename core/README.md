@@ -530,8 +530,6 @@ internal Service discovery methods to reference external entities.
 
 ### Exercise: Exposing a service using ingress
 
-**Objective:** Gain an understanding of how `Ingress` resources and the NGINX ingress controller works. 
-
 ---
 
 Prerequisites: 
