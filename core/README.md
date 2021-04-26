@@ -77,7 +77,7 @@ system and is the foundational building block of all Kubernetes Workloads.
 
 ### Exercise: Creating Pods
 **Objective:** Examine both single and multi-container Pods; including: viewing their attributes through the cli and
-their exposed Services through the API Server proxy.
+their exposed Services (using `kubectl port-forward`).
 
 ---
 
@@ -108,15 +108,16 @@ $ kubectl create -f manifests/pod-example.yaml
 $ kubectl describe pod pod-example
 ```
 
-3) Use `kubectl proxy` to verify the web server running in the deployed Pod.
+3) Use `kubectl port-forward` to bind the pod port to a local port accessible
+from a browser running on your machine 
 
 **Command**
 ```
-$ kubectl proxy
+$ kubectl port-forward --address=0.0.0.0 pod/pod-example 8080:80
 ```
 **URL**
 ```
-http://127.0.0.1:8001/api/v1/namespaces/dev/pods/pod-example/proxy/
+http://<your-machine-ip>:8080
 ```
 
 The default **"Welcome to nginx!"** page should be visible.
@@ -161,15 +162,15 @@ $ kubectl create -f manifests/pod-multi-container-example.yaml
 ```
 **Note:** `spec.containers` is an array allowing you to use multiple containers within a Pod.
 
-5) Use the proxy to verify the web server running in the deployed Pod.
+5) Use port-forward to verify the web server running in the deployed Pod.
 
 **Command**
 ```
-$ kubectl proxy
+$ kubectl port-forward --address=0.0.0.0 pod/multi-container-example 8080:80
 ```
 **URL**
 ```
-http://127.0.0.1:8001/api/v1/namespaces/dev/pods/multi-container-example/proxy/
+http://<your-machine-ip>:8080
 ```
 
 There should be a repeating date-time-stamp.
