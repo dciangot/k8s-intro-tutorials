@@ -2,6 +2,15 @@
 The Kubernetes client, `kubectl` is the primary method of interacting with a Kubernetes cluster. Getting to know it
 is essential to using Kubernetes itself.
 
+## Before you begin
+Clone the repository 
+```
+git clone https://github.com/andreaceccanti/k8s-intro-tutorials
+```
+Go to the exercises directory 
+```
+cd k8s-intro-tutorials/cli/
+```
 
 ## Index
 * [Syntax Structure](#syntax-structure)
