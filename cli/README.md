@@ -127,9 +127,11 @@ Kubernetes documentation.
 
 ---
 
-1. View the current contexts.
+1. View the current contexts. Create a namespace called "dev"
 ```
 $ kubectl config get-contexts
+$ kubectl create namespace dev
+
 ```
 
 2. Create a new context called `minidev` within the `minikube` cluster with the `dev` namespace, as the
