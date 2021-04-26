@@ -61,6 +61,16 @@ $ kubectl config set-context minidev --cluster=minikube --user=minikube --namesp
 $ kubectl config use-context minidev
 ```
 
+5) Verify that here you can't find any pod
+```
+$ kubectl get pods
+```
+
+6) To see all pods (other namespaces included) 
+```
+$ kubectl get pods -A 
+```
+
 ---
 
 **Summary:** Namespaces function as the primary method of providing scoped names, access, and act as an umbrella for
