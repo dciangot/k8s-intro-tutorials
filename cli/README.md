@@ -127,10 +127,9 @@ Kubernetes documentation.
 
 ---
 
-1. View the current contexts. Create a namespace called "dev"
+1. View the current contexts. 
 ```
 $ kubectl config get-contexts
-$ kubectl create namespace dev
 
 ```
 
