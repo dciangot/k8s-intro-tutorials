@@ -911,6 +911,11 @@ last 3 successful Jobs.
 $ kubectl describe CronJob cronjob-example
 ```
 The events will show the records of the creation and deletion of the Jobs.
+5) list the pods and see that their logs contain the Hello message
+```
+$ kubectl get pods
+$ kubectl logs <your pod name>
+```
 
 5) Edit the CronJob `cronjob-example` and locate the `Suspend` field. Then set it to true.
 ```
