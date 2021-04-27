@@ -81,14 +81,16 @@ spec:
 ```
 
 **Command**
+
+1) Open a new terminal ad watch as the newly created ReplicaSet provisions the Pods based off the Pod Template.
+```
+$ kubectl get pods --watch --show-labels
+```
+2) Create the ReplicaSet
 ```
 $ kubectl create -f manifests/rs-example.yaml
 ```
 
-2) Watch as the newly created ReplicaSet provisions the Pods based off the Pod Template.
-```
-$ kubectl get pods --watch --show-labels
-```
 Note that the newly provisioned Pods are given a name based off the ReplicaSet name appended with a 5 character random
 string. These Pods are labeled with the labels as specified in the manifest.
 
