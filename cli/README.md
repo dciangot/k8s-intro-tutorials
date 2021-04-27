@@ -597,7 +597,9 @@ open the dashboard up in a new browser window through an exposed service on the 
 ```
 $ minikube dashboard
 ```
+### Access the dashboard with port forwarding 
 
+$ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
 ---
 
 ### Exercise: Using the Proxy
