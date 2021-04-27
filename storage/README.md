@@ -490,13 +490,13 @@ $ kubectl create -f manifests/reader.yaml
 ```
 
 
-3) With the `reader` Deployment and Service created, use `kubectl proxy` to view the `reader` Service.
+3) With the `reader` Deployment and Service created, use `kubectl port-forward` to view the `reader` Service.
 ```
-$ kubectl proxy
+$ kubectl port-forward --address=0.0.0.0 svc/reader 8080:80
 ```
 **URL**
 ```
-http://127.0.0.1:8001/api/v1/namespaces/default/services/reader/proxy/
+http://<your-olss-vm-ip>:8080
 ```
 The `reader` Pods can reference the same Claim as the `writer` Pod. This is possible because the PV and PVC were
 created with the access mode `ReadWriteMany`.
