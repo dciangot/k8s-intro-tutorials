@@ -260,7 +260,11 @@ Look at the `Controlled By` field. It will contain a reference to the parent Rep
 Now that the relationship from Deployment to ReplicaSet to Pod is understood. It is time to update the
 `deploy-example` and see an update in action.
 
-7) Update the `deploy-example` manifest and add a few additional labels to the Pod template. Once done, apply the
+7) Open a terminal and watch the Pods.
+```
+$ kubectl get pods --show-labels --watch
+```
+8) Update the `deploy-example` manifest and add a few additional labels to the Pod template. Once done, apply the
 change with the `--record` flag.
 ```
 $ kubectl apply -f manifests/deploy-example.yaml --record
@@ -269,10 +273,6 @@ $ kubectl edit deploy deploy-example --record
 ```
 **Tip:** `deploy` can be substituted for `deployment` when using `kubectl`.
 
-8) Immediately watch the Pods.
-```
-$ kubectl get pods --show-labels --watch
-```
 The old version of the Pods will be phased out one at a time and instances of the new version will take its place.
 The way in which this is controlled is through the `strategy` stanza. For specific documentation this feature, see
 the [Deployment Strategy Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
