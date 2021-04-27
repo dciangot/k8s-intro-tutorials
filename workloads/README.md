@@ -454,17 +454,18 @@ $ kubectl describe ds ds-example
 ```
 **Tip:** `ds` can be substituted for `daemonset` when using `kubectl`.
 
-7) Update the DaemonSet by adding a few additional labels to the Pod Template and use the `--record` flag.
+7) Open a terminal and watch the Pods and be sure to show the labels.
+```
+$ kubectl get pods --show-labels --watch
+```
+
+8) Update the DaemonSet by adding a few additional labels to the Pod Template and use the `--record` flag.
 ```
 $ kubectl apply -f manifests/ds-example.yaml --record
   < or >
 $ kubectl edit ds ds-example --record
 ```
-
-8) Watch the Pods and be sure to show the labels.
-```
-$ kubectl get pods --show-labels --watch
-```
+ 
 The old version of the DaemonSet will be phased out one at a time and instances of the new version will take its
 place. Similar to Deployments, DaemonSets have their own equivalent to a Deployment's `strategy` in the form of
 `updateStrategy`. The defaults are generally suitable, but other tuning options may be set. For reference, see the
