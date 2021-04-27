@@ -814,13 +814,13 @@ spec:
 ```
 
 **Command**
-```
-$ kubectl create -f manifests/job-example.yaml
-```
-
-2) Watch the Pods as they are being created.
+1) open a terminal and watch the Pods as they are being created.
 ```
 $ kubectl get pods --show-labels --watch
+```
+2) Create the job
+```
+$ kubectl create -f manifests/job-example.yaml
 ```
 Only two Pods are being provisioned at a time; adhering to the `parallelism` attribute. This is done until the total
 number of `completions` is satisfied. Additionally, the Pods are labeled with `controller-uid`, this acts as a
