@@ -386,6 +386,10 @@ log forwarding, or health monitoring.
 how they are scheduled and how an update occurs.
 
 ---
+0) Go to the exercises directory 
+```
+$ cd k8s-intro-tutorials/workloads/
+```
 
 1) Create DaemonSet `ds-example` and pass the `--record` flag. Use the example yaml block below as a base, or use
 the manifest `manifests/ds-example.yaml` directly.
