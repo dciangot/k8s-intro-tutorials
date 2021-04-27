@@ -599,10 +599,12 @@ $ minikube dashboard
 ```
 ### Access the dashboard with port forwarding 
 
+```
 $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
+```
 ---
 
-### Exercise: Using the Proxy
+### Exercise: Using the Proxy, access the dashboard with proxy and port forwarding
 **Objective:** Examine the capabilities of the proxy by accessing a pod's exposed ports and using the dashboard.
 
 ---
@@ -619,14 +621,14 @@ $ kubectl proxy
 
 3) Access the Pod through the proxy.
 ```
-http://127.0.0.1:8001/api/v1/namespaces/dev/pods/mypod/proxy/
+curl http://127.0.0.1:8001/api/v1/namespaces/dev/pods/mypod/proxy/
 ```
 You should see the "Welcome to nginx!" page.
 
 
 4) Access the Dashboard through the proxy.
 ```
-http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/
+curl http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/
 ```
 
 5) Lastly, stop the proxy (`CTRL+C`) and access the Dashboard through minikube.
@@ -637,9 +639,11 @@ Minikube offers a convenient shortcut to access the dashboard (without the proxy
 
 6) Access the dashboard through port forwarding
 
+
 ```
- $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8081:80 
+ $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80 
 ```
+
 You can now access the kubernetes dashboard via web browser (because your cloud admin opened the 8081 port on perimeter) 
 
 ---
