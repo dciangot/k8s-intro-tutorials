@@ -10,6 +10,12 @@ In **ALL CASES** a Pod Template is included, and acts as the base tier of manage
 
 2) Unlike some of the other tutorials, the workload exercises should be cleaned up before moving onto the next
  workload type. The clean-up commands will included after **Summary** section of the exercise.
+ 
+## Before you begin
+Go to your working directory 
+```
+$ cd cd k8s-intro-tutorials/workloads/
+```
 
 # Index
 * [ReplicaSets](#replicasets)
