@@ -590,11 +590,17 @@ $ kubectl delete ing ingress-example
 
 ```
 
-5) To forward the ingress controller and access resources from a remote machine
-use the following command:
+5) To forward access to the ingress controller and access resources from a
+remote machine use the following command:
 ```
 $ kubectl --namespace=ingress-nginx port-forward --address 0.0.0.0 svc/ingress-nginx-controller 8080:80
 ```
+
+The above commands enables communication as describe in this picture:
+
+![Minikube port forward](../images/minikube-port-forward.jpeg)
+
+
 ---
 
 **Summary:** `Ingress` acts as a single entry point towards your cluster and uses virtualhost to forward traffic
