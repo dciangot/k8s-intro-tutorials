@@ -602,6 +602,11 @@ $ minikube dashboard
 ```
 $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
 ```
+Point your browser to 
+```
+http://<your-floating-ip>:8080 
+```
+
 ---
 
 ### Exercise: Using the Proxy, access the dashboard with proxy and port forwarding
