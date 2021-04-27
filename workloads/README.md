@@ -14,7 +14,7 @@ In **ALL CASES** a Pod Template is included, and acts as the base tier of manage
 ## Before you begin
 Go to your working directory 
 ```
-$ cd cd k8s-intro-tutorials/workloads/
+$ cd k8s-intro-tutorials/workloads/
 ```
 
 # Index
