@@ -334,17 +334,17 @@ $ kubectl rollout history deployment deploy-example --revision=2
 ```
 Viewing the specific revision will display a summary of the Pod Template.
 
-3) Choose to go back to revision `1` by using the `rollout undo` command.
-```
-$ kubectl rollout undo deployment deploy-example --to-revision=1
-```
-**Tip:** The `--to-revision` flag can be omitted if you wish to just go back to the previous configuration.
-
-4) Immediately watch the Pods.
+3) Open a terminal and watch the Pods.
 ```
 $ kubectl get pods --show-labels --watch
 ```
+4) Choose to go back to revision `1` by using the `rollout undo` command.
+```
+$ kubectl rollout undo deployment deploy-example --to-revision=1
+```
 They will cycle through rolling back to the previous revision.
+
+**Tip:** The `--to-revision` flag can be omitted if you wish to just go back to the previous configuration.
 
 5) Describe the Deployment `deploy-example`.
 ```
