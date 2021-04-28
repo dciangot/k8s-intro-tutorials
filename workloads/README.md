@@ -432,7 +432,7 @@ As there are no matching nodes, no Pods should be scheduled.
 
 3) Label the `minikube` node with `nodeType=edge`
 ```
-$ kubectl label node minikube nodeType=edge
+$ kubectl label node minikube nodeType=edge --overwrite
 ```
 
 4) View the current DaemonSets once again.
