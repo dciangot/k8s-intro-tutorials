@@ -701,7 +701,7 @@ does however make this task easier.
 
 ---
 
-### Exercise: Understanding StatefulSet Network Identity
+### Optional: Understanding StatefulSet Network Identity
 
 **Objective:** Create a _"headless service"_ or a service without a `ClusterIP` (`ClusterIP=None`) for use with the
 StatefulSet `sts-example`, then explore how this enables consistent service discovery.
