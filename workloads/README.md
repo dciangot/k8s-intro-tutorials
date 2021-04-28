@@ -925,7 +925,7 @@ $ kubectl logs <your pod name>
 
 6) Edit the CronJob `cronjob-example` and locate the `Suspend` field. Then set it to true.
 ```
-$ kubectl edit CronJob cronjob-example
+$ kubectl edit cronjob cronjob-example
 ```
 This will prevent the cronjob from firing off any future events, and is useful to do to initially troubleshoot
 an issue without having to delete the CronJob directly.
