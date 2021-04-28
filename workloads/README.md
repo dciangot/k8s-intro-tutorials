@@ -480,7 +480,7 @@ around node placement. Like Deployments, they have their own `pod-template-hash`
 
 ---
 
-### Optional: Working with DaemonSet Revisions
+### Exercise: Working with DaemonSet Revisions
 
 **Objective:** Explore using the `rollout` command to rollback to a specific version of a DaemonSet.
 
@@ -543,7 +543,7 @@ kubectl delete ds ds-example
 ---
 ---
 
-# StatefulSets
+# Optional: StatefulSets
 The StatefulSet controller is tailored to managing Pods that must persist or maintain state. Pod identity including
 hostname, network, and storage can be considered **persistent**.
 
@@ -553,7 +553,7 @@ They ensure persistence by making use of three things:
 * A volume template to ensure stable per-instance storage.
 ---
 
-### Exercise: Managing StatefulSets
+### Optional: Managing StatefulSets
 **Objective:** Create, update, and delete a `StatefulSet` to gain an understanding of how the StatefulSet lifecycle
 differs from other workloads with regards to updating, deleting and the provisioning of storage.
 
