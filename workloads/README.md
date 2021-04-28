@@ -858,7 +858,12 @@ a job in the event of a problem.
 
 ---
 
-1) Create CronJob `cronjob-example` based off the yaml below, or use the manifest `manifests/cronjob-example.yaml`
+1) Open a second terminal and monitor the pods
+```
+kubectl get pods --show-labels --watch
+```
+
+2) Create CronJob `cronjob-example` based off the yaml below, or use the manifest `manifests/cronjob-example.yaml`
 It is configured to run the Job from the earlier example every minute, using the cron schedule `"*/1 * * * *"`.
 This schedule is **UTC ONLY**.
 
@@ -891,16 +896,17 @@ spec:
 $ kubectl create -f manifests/cronjob-example.yaml
 ```
 
-2) Give it some time to run, and then list the Jobs.
+2) Monitor the Jobs 
 ```
-$ kubectl get jobs
+$ kubectl get jobs --watch
 ```
+
 There should be at least one Job named in the format `<cronjob-name>-<unix time stamp>`. Note the timestamp of
 the oldest Job.
 
-3) Give it a few minutes and list the Jobs once again
+3) After some minutes (more than 3) stop the job monitoring and list the jobs once again
 ```
-$ kubectl get jobs
+$ kubectl get jobs 
 ```
 The oldest Job should have been removed. The CronJob controller will purge Jobs according to the
 `successfulJobHistoryLimit` and `failedJobHistoryLimit` attributes. In this case, it is retaining strictly the
