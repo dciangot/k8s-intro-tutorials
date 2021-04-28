@@ -916,14 +916,14 @@ last 3 successful Jobs.
 ```
 $ kubectl describe CronJob cronjob-example
 ```
-The events will show the records of the creation and deletion of the Jobs.
+
 5) list the pods and see that their logs contain the Hello message
 ```
 $ kubectl get pods
 $ kubectl logs <your pod name>
 ```
 
-5) Edit the CronJob `cronjob-example` and locate the `Suspend` field. Then set it to true.
+6) Edit the CronJob `cronjob-example` and locate the `Suspend` field. Then set it to true.
 ```
 $ kubectl edit CronJob cronjob-example
 ```
@@ -931,7 +931,7 @@ This will prevent the cronjob from firing off any future events, and is useful t
 an issue without having to delete the CronJob directly.
 
 
-5) Delete the CronJob
+7) Delete the CronJob
 ```
 $ kubectl delete cronjob cronjob-example
 ```
