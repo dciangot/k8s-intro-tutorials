@@ -187,7 +187,7 @@ That should hopefully resolve the kubeadm init error.
 
 
 
- [intro-slides]: https://docs.google.com/presentation/d/1zrfVlE5r61ZNQrmXKx5gJmBcXnoa_WerHEnTxu5SMco/edit?usp=sharing
+ [intro-slides]: https://docs.google.com/presentation/d/1hNYs8s5CljYu3906SRcjnedBAHJTEEp8UdgREWaT6s4/edit#slide=id.g3cfa019267_4_0
  [minikube]: https://github.com/kubernetes/minikube
  [minikube-hypervisors]: https://github.com/kubernetes/minikube#requirements
  [brew]: https://brew.sh/
