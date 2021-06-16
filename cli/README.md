@@ -52,7 +52,7 @@ kubectl <command> <type> <name> <flags>
 
 **Examples**
 ```
-$ kubectl create -f mypod.yaml
+$ kubectl create -f manifests/mypod.yaml
 $ kubectl get pods
 $ kubectl get pod mypod
 $ kubectl delete pod mypod
