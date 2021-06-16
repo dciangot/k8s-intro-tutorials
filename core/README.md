@@ -1,7 +1,8 @@
 # Exploring the Core
 
-This tutorial covers the fundamental building blocks that make up Kubernetes. Understanding what these components are
-and how they are used is crucial to learning how to use the higher level objects and resources.
+This tutorial covers the fundamental building blocks that make up Kubernetes.
+Understanding what these components are and how they are used is crucial to
+learning how to use the higher level objects and resources.
 
 ## Before you begin
 Go to the exercises directory 
@@ -42,33 +43,33 @@ access.
 
 1) List the current namespaces
 ```
-$ kubectl get namespaces
+kubectl get namespaces
 ```
 
 2) Create the `dev` namespace
 ```
-$ kubectl create namespace dev
+kubectl create namespace dev
 ```
 
 3) Create a new context called `minidev` within the `minikube` cluster  as the `minikube` user, with the namespace
  set to `dev`.
 ```
-$ kubectl config set-context minidev --cluster=minikube --user=minikube --namespace=dev
+kubectl config set-context minidev --cluster=minikube --user=minikube --namespace=dev
 ```
 
 4) Switch to the newly created context.
 ```
-$ kubectl config use-context minidev
+kubectl config use-context minidev
 ```
 
 5) Verify that here you can't find any pod
 ```
-$ kubectl get pods
+kubectl get pods
 ```
 
 6) To see all pods (other namespaces included) 
 ```
-$ kubectl get pods -A 
+kubectl get pods -A 
 ```
 
 ---
@@ -117,12 +118,12 @@ spec:
 
 **Command**
 ```
-$ kubectl create -f manifests/pod-example.yaml
+kubectl apply -f manifests/pod-example.yaml
 ```
 
 2) Use `kubectl` to describe the Pod and note the available information.
 ```
-$ kubectl describe pod pod-example
+kubectl describe pod pod-example
 ```
 
 3) Use `kubectl port-forward` to bind the pod port to a local port accessible
@@ -130,11 +131,11 @@ from a browser running on your machine
 
 **Command**
 ```
-$ kubectl port-forward --address=0.0.0.0 pod/pod-example 8080:80
+kubectl port-forward --address=0.0.0.0 pod/pod-example 8080:80
 ```
 **URL**
 ```
-http://<your-olss-vm-machine-ip>:8080
+http://<your-vm-machine-ip>:8080
 ```
 
 The default **"Welcome to nginx!"** page should be visible.
@@ -175,7 +176,7 @@ spec:
 
 **Command**
 ```
-$ kubectl create -f manifests/pod-multi-container-example.yaml
+kubectl apply -f manifests/pod-multi-container-example.yaml
 ```
 **Note:** `spec.containers` is an array allowing you to use multiple containers within a Pod.
 
@@ -183,11 +184,11 @@ $ kubectl create -f manifests/pod-multi-container-example.yaml
 
 **Command**
 ```
-$ kubectl port-forward --address=0.0.0.0 pod/multi-container-example 8080:80
+kubectl port-forward --address=0.0.0.0 pod/multi-container-example 8080:80
 ```
 **URL**
 ```
-http://<your-olss-vm-machine-ip>:8080
+http://<your-vm-machine-ip>:8080
 ```
 
 There should be a repeating date-time-stamp.
@@ -222,12 +223,12 @@ set-based selectors.
 1) Label the Pod `pod-example` with `app=nginx` and `environment=dev` via `kubectl`.
 
 ```
-$ kubectl label pod pod-example app=nginx environment=dev
+kubectl label pod pod-example app=nginx environment=dev
 ```
 
 2) View the labels with `kubectl` by passing the `--show-labels` flag
 ```
-$ kubectl get pods --show-labels
+kubectl get pods --show-labels
 ```
 
 3) Update the multi-container example manifest created previously with the labels `app=nginx` and `environment=prod`
@@ -269,7 +270,7 @@ spec:
 
 **Command**
 ```
-$ kubectl apply -f manifests/pod-multi-container-example.yaml
+kubectl apply -f manifests/pod-multi-container-example.yaml
 ```
 
 4) View the added labels with `kubectl` by passing the `--show-labels` flag once again.
@@ -281,19 +282,19 @@ $ kubectl get pods --show-labels
 targeting the `prod` environment.
 
 ```
-$ kubectl get pods --selector environment=prod
+kubectl get pods --selector environment=prod
 ```
 
 6) Do the same targeting the `nginx` app with the short version of the selector flag (`-l`).
 ```
-$ kubectl get pods -l app=nginx
+kubectl get pods -l app=nginx
 ```
 
 7) Use a [set-based selector](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#set-based-requirement)
 to view all pods where the `app` label is `nginx` and filter out any that are in the `prod` environment.
 
 ```
-$ kubectl get pods -l 'app in (nginx), environment notin (prod)'
+kubectl get pods -l 'app in (nginx), environment notin (prod)'
 ```
 
 ---
@@ -342,19 +343,19 @@ spec:
 
 **Command**
 ```
-$ kubectl create -f manifests/service-clusterip.yaml
+kubectl apply -f manifests/service-clusterip.yaml
 ```
 
 2) Describe the newly created service. Note the `IP` and the `Endpoints` fields.
 ```
-$ kubectl describe service clusterip
+kubectl describe service clusterip
 ```
 
 3) Forward the service port and refresh several times. It should serve up pages from both pods.
 
 **Command**
 ```
-$ kubectl  port-forward --address=0.0.0.0 svc/clusterip 8080:80
+kubectl  port-forward --address=0.0.0.0 svc/clusterip 8080:80
 ```
 **URL**
 ```
@@ -364,7 +365,7 @@ http://<your-olss-vm-machine-ip>:8080
 4) Lastly, verify that the generated DNS record has been created for the Service by using nslookup within the
 `example-pod` Pod that was provisioned in the [Creating Pods](#exercise-creating-pods) exercise.
 ```
-$ kubectl exec pod-example -- nslookup clusterip.dev.svc.cluster.local
+kubectl exec pod-example -- nslookup clusterip.dev.svc.cluster.local
 ```
 It should return a valid response with the IP matching what was noted earlier when describing the Service.
 
@@ -406,24 +407,24 @@ spec:
 
 **Command**
 ```
-$ kubectl create -f manifests/service-nodeport.yaml
+kubectl apply -f manifests/service-nodeport.yaml
 ```
 
 2) Describe the newly created Service Endpoint. Note the Service still has an internal cluster `IP`, and now
 additionally has a `NodePort`.
 ```
-$ kubectl describe service nodeport
+kubectl describe service nodeport
 ```
 
 3) Use the `minikube service` command to open the newly exposed `nodeport` Service in a browser.
 ```
-$ minikube service -n dev nodeport
+minikube service -n dev nodeport
 ```
 
 4) Lastly, verify that the generated DNS record has been created for the Service by using nslookup within
 the `example-pod` Pod.
 ```
-$ kubectl exec pod-example -- nslookup nodeport.dev.svc.cluster.local
+kubectl exec pod-example -- nslookup nodeport.dev.svc.cluster.local
 ```
 It should return a valid response with the IP matching what was noted earlier when describing the Service.
 
@@ -450,7 +451,7 @@ that can do this, but for this example the Google [metalLB](https://github.com/g
 IP range. Edit the manifest `manifests/metalLB.yaml` and change the cidr range on line 20 (`192.168.99.224/28`) to
 fit your requirements. Otherwise go ahead and deploy it.
 ```
-$ kubectl create -f manifests/metalLB.yaml
+kubectl apply -f manifests/metalLB.yaml
 ```
 
 1) Create a `LoadBalancer` Service called `loadbalancer` that targets pods with the labels `app=nginx` and
@@ -476,13 +477,13 @@ spec:
 
 **Command**
 ```
-$ kubectl create -f manifests/service-loadbalancer.yaml
+kubectl apply -f manifests/service-loadbalancer.yaml
 ```
 
 2) Describe the Service `loadbalancer`, and note the Service retains the aspects of both the `ClusterIP` and
 `NodePort` Service types in addition to having a new attribute `LoadBalancer Ingress`.
 ```
-$ kubectl describe service loadbalancer
+kubectl describe service loadbalancer
 ```
 
 3) Open a browser and visit the IP noted in the `Loadbalancer Ingress` field. It should directly map to the exposed
@@ -491,13 +492,13 @@ Service.
 4) Use the `minikube service` command to open the `NodePort` portion of the `loadbalancer` Service in a new browser
 window.
 ```
-$ minikube service -n dev loadbalancer
+minikube service -n dev loadbalancer
 ```
 
 5) Finally, verify that the generated DNS record has been created for the Service by using nslookup within the
 `example-pod` Pod.
 ```
-$ kubectl exec pod-example -- nslookup loadbalancer.dev.svc.cluster.local
+kubectl exec pod-example -- nslookup loadbalancer.dev.svc.cluster.local
 ```
 It should return a valid response with the IP matching what was noted earlier when describing the Service.
 
@@ -518,19 +519,19 @@ turn direct traffic to the desired Pods.
 
 1) Create an `ExternalName` service called `externalname` that points to `google.com`
 ```
-$ kubectl create service externalname externalname --external-name=google.com
+kubectl create service externalname externalname --external-name=google.com
 ```
 
 2) Describe the `externalname` Service. Note that it does **NOT** have an internal IP or other _normal_ service
 attributes.
 ```
-$ kubectl describe service externalname
+kubectl describe service externalname
 ```
 
 3) Lastly, look at the generated DNS record has been created for the Service by using nslookup within the
 `example-pod` Pod. It should return the IP of `google.com`.
 ```
-$ kubectl exec pod-example -- nslookup externalname.dev.svc.cluster.local
+kubectl exec pod-example -- nslookup externalname.dev.svc.cluster.local
 ```
 
 ---
@@ -571,29 +572,29 @@ minikube ip
 
 1) Create an `Ingress` resources for the service created before 
 ```
-$ kubectl apply -f manifests/ingress-example.yaml
+kubectl apply -f manifests/ingress-example.yaml
 ```
 
 2) Inspect the created Ingress.
 ```
-$ kubectl describe ingress example-ingress
+kubectl describe ingress ingress-example
 ```
 
 3) See the ingress in action:
 ```
-$ curl ingress-example.minkube
+curl ingress-example.minikube
 ```
 
 4) Delete the ingress resource:
 ```
-$ kubectl delete ing ingress-example
+kubectl delete ing ingress-example
 
 ```
 
 5) To forward access to the ingress controller and access resources from a
 remote machine use the following command:
 ```
-$ kubectl --namespace=ingress-nginx port-forward --address 0.0.0.0 svc/ingress-nginx-controller 8080:80
+kubectl --namespace=ingress-nginx port-forward --address 0.0.0.0 svc/ingress-nginx-controller 8080:80
 ```
 
 The above commands enables communication as describe in this picture:
