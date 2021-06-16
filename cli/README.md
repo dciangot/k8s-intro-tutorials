@@ -67,11 +67,11 @@ kubectl explain <object>
 ```
 
 ```
-$ kubectl explain pod
+kubectl explain pod
 ```
 To find all available objects 
 ```
-$ kubectl api-resources
+kubectl api-resources
 ```
 
 ---
@@ -103,8 +103,12 @@ $ kubectl config view
 ```
 
 **Example**
+
+```
+kubectl config view
+```
+
 ```yaml
-$ kubectl config view
 apiVersion: v1
 clusters:
 - cluster:
@@ -153,15 +157,16 @@ Kubernetes documentation.
 ---
 
 1. View the current contexts. 
+
 ```
-$ kubectl config get-contexts
+kubectl config get-contexts
 
 ```
 
 2. Create a new context called `minidev` within the `minikube` cluster with the `dev` namespace, as the
 `minikube` user.
 ```
-$ kubectl config set-context minidev --cluster=minikube --user=minikube --namespace=dev
+kubectl config set-context minidev --cluster=minikube --user=minikube --namespace=dev
 ```
 
 3. View the newly added context.
@@ -171,12 +176,12 @@ kubectl config get-contexts
 
 4. Switch to the `minidev` context using `use-context`.
 ```
-$ kubectl config use-context minidev
+kubectl config use-context minidev
 ```
 
 5. View the current active context.
 ```
-$ kubectl config current-context
+kubectl config current-context
 ```
 
 ---
@@ -387,8 +392,8 @@ $ kubectl logs mypod
 ---
 
 ### Exercise: The Basics
-**Objective:** Explore the basics. Create a namespace, a pod, then use the `kubectl` commands to describe and delete
-what was created.
+**Objective:** Explore the basics. Create a namespace, a pod, then use the
+`kubectl` commands to describe and delete what was created.
 
 **NOTE:** You should still be using the `minidev` context created earlier.
 
@@ -494,23 +499,23 @@ interactive shell within a Pod.
 
 1) If not already created, create the Pod `mypod` from the manifest `manifests/mypod.yaml`.
 ```
-$ kubectl create -f manifests/mypod.yaml
+kubectl create -f manifests/mypod.yaml
 ```
 
 2) Wait for the Pod to become ready (`running`).
 ```
-$ kubectl get pods --watch
+kubectl get pods --watch
 ```
 
 3) Use `kubectl exec` to `cat` the file `/etc/os-release`.
 ```
-$ kubectl exec mypod -- cat /etc/os-release
+kubectl exec mypod -- cat /etc/os-release
 ```
 It should output the contents of the `os-release` file.
 
 4) Now use `kubectl exec` and supply the `-i -t` flags to spawn a shell session within the container.
 ```
-$ kubectl exec -i -t mypod -- /bin/sh
+kubectl exec -i -t mypod -- /bin/sh
 ```
 If executed correctly, it should drop you into a new shell session within the nginx container.
 
@@ -526,8 +531,8 @@ once again be nginx and its worker process.
 
 ---
 
-**Summary:** `kubectl exec` is not often used, but is an important skill to be familiar with when it comes to Pod
-debugging.
+**Summary:** `kubectl exec` is not often used, but is an important skill to be
+familiar with when it comes to Pod debugging.
 
 ---
 
@@ -639,7 +644,7 @@ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kube
 Point your browser to 
 
 ```
-http://<your-ccr-vm--ip>:8080 
+http://<your-ccr-vm-ip>:8080 
 ```
 
 ---
@@ -651,12 +656,12 @@ http://<your-ccr-vm--ip>:8080
 
 1) Create the Pod `mypod` from the manifest `manifests/mypod.yaml`. (if not created previously)
 ```
-$ kubectl create -f manifests/mypod.yaml
+kubectl create -f manifests/mypod.yaml
 ```
 
 2) Start the `kubectl proxy` with the defaults.
 ```
-$ kubectl proxy
+kubectl proxy
 ```
 
 3) Access the Pod through the proxy.
@@ -678,7 +683,12 @@ port-forward:
  $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80 
 ```
 
-You can now access the kubernetes dashboard via web browser.
+You can now access the kubernetes dashboard via web browser, by pointing it to
+the following url:
+
+```
+http://<your-ccr-vm-ip>:8080 
+```
 
 ---
 
