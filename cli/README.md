@@ -433,18 +433,24 @@ simple tasks become 2nd nature as more experience is gained.
 
 # Accessing the Cluster
 
-`kubectl` provides several mechanisms for accessing resources within the cluster remotely. For this tutorial, the focus
-will be on using `kubectl exec` to get a remote shell within a container, and `kubectl proxy` to gain access to the
-services exposed through the API proxy.
+`kubectl` provides several mechanisms for accessing resources within the
+cluster remotely. For this tutorial, the focus will be on using `kubectl exec`
+to get a remote shell within a container, `kubectl port-forward` to do port
+forwarding in order to access services running within the kubernetes cluster
+and `kubectl proxy` to gain access to the services exposed through the API
+proxy.
 
 ---
 
 ### `kubectl exec`
-`kubectl exec` executes a command within a Pod and can optionally spawn an interactive terminal within a remote
-container. When more than one container is present within a Pod, the `-c` or `--container` flag is required, followed
-by the container name.
 
-If an interactive session is desired, the `-i` (`--stdin`) and `-t` (`--tty`) flags must be supplied.
+`kubectl exec` executes a command within a Pod and can optionally spawn an
+interactive terminal within a remote container. When more than one container is
+present within a Pod, the `-c` or `--container` flag is required, followed by
+the container name.
+
+If an interactive session is desired, the `-i` (`--stdin`) and `-t` (`--tty`)
+flags must be supplied.
 
 **Command**
 ```
@@ -480,7 +486,9 @@ $ kubectl exec -i -t mypod -c nginx -- /bin/sh
 ---
 
 ### Exercise: Executing Commands within a Remote Pod
-**Objective:** Use `kubectl exec` to both initiate commands and spawn an interactive shell within a Pod.
+
+**Objective:** Use `kubectl exec` to both initiate commands and spawn an
+interactive shell within a Pod.
 
 ---
 
@@ -524,9 +532,13 @@ debugging.
 ---
 
 ### `kubectl proxy`
+
 `kubectl proxy` enables access to both the Kubernetes API-Server and to resources running within the cluster
 securely using `kubectl`. By default it creates a connection to the API-Server that can be accessed at
 `127.0.0.1:8001` or an alternative port by supplying the `-p` or `--port` flag.
+
+This is very useful when we want, for example, access apps deployed on the
+kubernetes cluster before exposing them to the world.
 
 
 **Command**
@@ -555,9 +567,10 @@ $ curl 127.0.0.1:8001/version
 }
 ```
 
-The Kubernetes API-Server has the built in capability to proxy to running services or pods within the cluster. This
-ability in conjunction with the `kubectl proxy` command allows a user to access those services or pods without having
-to expose them outside of the cluster.
+The Kubernetes API-Server has the built in capability to proxy to running
+services or pods within the cluster. This ability in conjunction with the
+`kubectl proxy` command allows a user to access those services or pods without
+having to expose them outside of the cluster.
 
 ```
 http://<proxy_address>/api/v1/namespaces/<namespace>/<services|pod>/<service_name|pod_name>[:port_name]/proxy
@@ -579,32 +592,54 @@ http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/kubernetes
 
 ### Dashboard
 
-While the Kubernetes Dashboard is not something that is required to be deployed in a cluster, it frequently is and is
-a handy tool to quickly explore the system. **However**, it should not be relied upon for cluster support.
+While the Kubernetes Dashboard is not something that is required to be deployed
+in a cluster, it frequently is and is a handy tool to quickly explore the
+system. 
+
+The dashboard could be already enabled for your minikube deployment, you can
+check with the following command:
+
+```
+minikube addons list
+```
+
+In case it's not enabled, to enable the dashboard for your minikube deployment,
+use:
+
+```
+minikube addons enable metrics-server 
+minikube addons enable dashboard
+````
 
 ![Kubernetes Dashboard](images/dashboard.png)
 
-To access the dashboard use the `kubectl proxy` command and access the `kubernetes-dashboard` service within the
-`kube-system` namespace.
+To access the dashboard use the `kubectl proxy` command and access the
+`kubernetes-dashboard` service within the `kube-system` namespace.
 ```
 http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/
 ```
 
-Leaving the proxy up and going may not be desirable for quick dev-work. Minikube itself has a command that will
-open the dashboard up in a new browser window through an exposed service on the Minikube VM.
+This is not really useful for our test environment, where on the VM that runs
+minikube you do not typically run a browser.
 
-**Command**
-```
-$ minikube dashboard
-```
+There are some workarounds to have kubectl proxy work in this environment:
+- use kubectl port-forward to expose the dashboard
+- configure kubectl on your local machine (your laptop) so that it can talk to
+  the minikube cluster running on the remote VM 
+- expose the dashboard using the ingress controller (or a nodeport service)
+
+The solution that is simpler to implement is the first one.
+
 ### Access the dashboard with port forwarding 
 
 ```
-$ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
+kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80
 ```
+
 Point your browser to 
+
 ```
-http://<your-floating-ip>:8080 
+http://<your-ccr-vm--ip>:8080 
 ```
 
 ---
@@ -636,25 +671,20 @@ You should see the "Welcome to nginx!" page.
 curl http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/
 ```
 
-5) Lastly, stop the proxy (`CTRL+C`) and access the Dashboard through minikube.
-```
-$ minikube dashboard
-```
-Minikube offers a convenient shortcut to access the dashboard (without the proxy) for local development use. But in our environment this won't work, because you don't have any browser installed on your VM.
-
-6) Access the dashboard through port forwarding
-
+5) Lastly, stop the proxy (`CTRL+C`) and access the dashboard through the
+port-forward:
 
 ```
  $ kubectl --namespace=kubernetes-dashboard port-forward --address 0.0.0.0 svc/kubernetes-dashboard 8080:80 
 ```
 
-You can now access the kubernetes dashboard via web browser (because your cloud admin opened the 8081 port on perimeter) 
+You can now access the kubernetes dashboard via web browser.
 
 ---
 
-**Summary:** Being able to access the exposed Pods and Services within a cluster without having to consume an
-external IP, or create firewall rules is an incredibly useful tool for troubleshooting cluster services.
+**Summary:** Being able to access the exposed Pods and Services within a
+cluster without having to consume an external IP, or create firewall rules is
+an incredibly useful tool for troubleshooting cluster services.
 
 ---
 
@@ -688,6 +718,5 @@ kubectl config delete-context minidev
 * [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 * [kubectl Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands)
 * [Accessing Clusters](https://kubernetes.io/docs/tasks/access-application-cluster/access-cluster/)
-
 
 [Back to Index](#index)
